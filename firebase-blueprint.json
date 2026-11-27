@@ -1,0 +1,560 @@
+{
+  "entities": {
+    "Customer": {
+      "title": "Customer",
+      "description": "Customer profile authenticated via mobile number and 4-digit account password.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "phone": { "type": "string", "minLength": 10, "maxLength": 20 },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 160 },
+        "marketingConsent": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "phone", "name", "createdAt", "updatedAt"]
+    },
+    "Address": {
+      "title": "Address",
+      "description": "Customer saved delivery address inside or outside Brigade Eldorado.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "customerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "label": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "recipientName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "phone": { "type": "string", "minLength": 10, "maxLength": 20 },
+        "community": { "type": "string", "enum": ["brigade_eldorado", "outside_eldorado"] },
+        "apartmentName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "blockOrTower": { "type": "string", "maxLength": 60 },
+        "flatNumber": { "type": "string", "maxLength": 40 },
+        "landmark": { "type": "string", "maxLength": 120 },
+        "isDefault": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "customerId", "label", "recipientName", "phone", "community", "apartmentName", "isDefault", "createdAt", "updatedAt"]
+    },
+    "CustomerNotification": {
+      "title": "CustomerNotification",
+      "description": "In-website order and SMS delivery notification for a customer.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "customerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "orderId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "message": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "smsSent": { "type": "boolean" },
+        "smsStatusDetail": { "type": "string", "maxLength": 240 },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "customerId", "orderId", "title", "message", "smsSent", "smsStatusDetail", "read", "createdAt"]
+    },
+    "FoodMenuItem": {
+      "title": "FoodMenuItem",
+      "description": "Food menu item sold on ZAIKORA KITCHENS.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "category": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "quantityLabel": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "originalPrice": { "type": "integer" },
+        "description": { "type": "string", "maxLength": 300 },
+        "imageUrl": { "type": "string", "maxLength": 1000 },
+        "imageDerivativeUrl": { "type": "string", "maxLength": 1000 },
+        "mediaId": { "type": "string", "maxLength": 128 },
+        "available": { "type": "boolean" },
+        "sortOrder": { "type": "integer" },
+        "stockMode": { "type": "string", "enum": ["unlimited", "limited"] },
+        "stockQuantity": { "type": "integer" },
+        "stockUnit": { "type": "string", "maxLength": 40 },
+        "lowStockThreshold": { "type": "integer" },
+        "soldOut": { "type": "boolean" },
+        "lastStockUpdatedAt": { "type": "string", "format": "date-time" },
+        "lastStockUpdatedBy": { "type": "string", "maxLength": 128 },
+        "lastStockOrderId": { "type": "string", "maxLength": 128 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "category", "quantityLabel", "originalPrice", "available", "sortOrder", "updatedAt"]
+    },
+    "CakeMenuItem": {
+      "title": "CakeMenuItem",
+      "description": "Cake item on the separate Cakes page.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "cakeType": { "type": "string", "enum": ["bento", "sicle", "party"] },
+        "quantityLabel": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "originalPrice": { "type": "integer" },
+        "priceUnit": { "type": "string", "maxLength": 40 },
+        "flavours": { "type": "array" },
+        "notice": { "type": "string", "maxLength": 200 },
+        "orderableOnline": { "type": "boolean" },
+        "eligibleForAutoDiscount": { "type": "boolean" },
+        "description": { "type": "string", "maxLength": 400 },
+        "imageUrl": { "type": "string", "maxLength": 1000 },
+        "imageDerivativeUrl": { "type": "string", "maxLength": 1000 },
+        "mediaId": { "type": "string", "maxLength": 128 },
+        "available": { "type": "boolean" },
+        "sortOrder": { "type": "integer" },
+        "stockMode": { "type": "string", "enum": ["unlimited", "limited"] },
+        "stockQuantity": { "type": "integer" },
+        "stockUnit": { "type": "string", "maxLength": 40 },
+        "lowStockThreshold": { "type": "integer" },
+        "soldOut": { "type": "boolean" },
+        "lastStockUpdatedAt": { "type": "string", "format": "date-time" },
+        "lastStockUpdatedBy": { "type": "string", "maxLength": 128 },
+        "lastStockOrderId": { "type": "string", "maxLength": 128 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "cakeType", "quantityLabel", "originalPrice", "orderableOnline", "eligibleForAutoDiscount", "available", "sortOrder", "updatedAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order with pricing breakdown, delivery rules, preparation estimate, admin approval/rejection, and live status.",
+      "type": "object",
+      "properties": {
+        "orderId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "customerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "customerName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "customerPhone": { "type": "string", "minLength": 10, "maxLength": 20 },
+        "customerEmail": { "type": "string", "maxLength": 160 },
+        "idempotencyKey": { "type": "string", "maxLength": 128 },
+        "fulfillmentType": { "type": "string", "enum": ["delivery", "collection"] },
+        "deliveryCommunity": { "type": "string", "enum": ["brigade_eldorado", "outside_eldorado", "collection_gate"] },
+        "deliveryAddressSummary": { "type": "string", "minLength": 1, "maxLength": 350 },
+        "deliveryRuleAcknowledged": { "type": "boolean" },
+        "displayedSubtotal": { "type": "integer" },
+        "autoDiscountTotal": { "type": "integer" },
+        "couponCode": { "type": "string", "maxLength": 40 },
+        "couponDiscount": { "type": "integer" },
+        "deliveryCharge": { "type": "integer" },
+        "handlingCharge": { "type": "integer" },
+        "additionalChargesTotal": { "type": "integer" },
+        "appliedCharges": {
+          "type": "array",
+          "description": "Immutable snapshot of dynamic checkout charges applied at checkout."
+        },
+        "finalAmount": { "type": "integer" },
+        "totalItemCount": { "type": "integer" },
+        "itemsPreview": { "type": "string", "maxLength": 300 },
+        "paymentStatus": { "type": "string", "enum": ["pending", "verified", "successful", "failed", "refund_processing", "refunded"] },
+        "paymentId": { "type": "string", "maxLength": 128 },
+        "razorpayOrderId": { "type": "string", "maxLength": 128 },
+        "razorpayPaymentId": { "type": "string", "maxLength": 128 },
+        "paymentVerifiedAt": { "type": "string", "format": "date-time" },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PAYMENT PENDING",
+            "PAYMENT FAILED",
+            "PAYMENT VERIFIED",
+            "PENDING ADMIN APPROVAL",
+            "CONFIRMED",
+            "PREPARING",
+            "READY",
+            "OUT FOR DELIVERY",
+            "READY FOR COLLECTION",
+            "DELIVERED",
+            "COLLECTED",
+            "REJECTED",
+            "REFUND PROCESSING",
+            "REFUNDED",
+            "Order Placed Successfully",
+            "Payment Successful / Confirmed",
+            "Preparing Your Order",
+            "Order Ready",
+            "Out for Delivery",
+            "Ready for Collection",
+            "Delivered / Collected",
+            "Cancelled"
+          ]
+        },
+        "estimatedPrepMinutes": { "type": "integer" },
+        "readySoonerNotice": { "type": "string", "maxLength": 200 },
+        "reviewFlagged": { "type": "boolean" },
+        "reviewFlagReason": { "type": "string", "maxLength": 300 },
+        "suspiciousScore": { "type": "integer" },
+        "adminAccepted": { "type": "boolean" },
+        "adminAcceptedBy": { "type": "string", "maxLength": 128 },
+        "adminAcceptedAt": { "type": "string", "format": "date-time" },
+        "adminRejected": { "type": "boolean" },
+        "adminRejectedBy": { "type": "string", "maxLength": 128 },
+        "adminRejectedAt": { "type": "string", "format": "date-time" },
+        "rejectionReason": { "type": "string", "maxLength": 300 },
+        "refundId": { "type": "string", "maxLength": 128 },
+        "refundStatus": {
+          "type": "string",
+          "enum": [
+            "Refund Requested",
+            "Under Investigation",
+            "Refund Approved",
+            "Refund Processing",
+            "Refund Completed",
+            "Refund Rejected"
+          ]
+        },
+        "refundAmount": { "type": "integer" },
+        "refundInitiatedAt": { "type": "string", "format": "date-time" },
+        "refundCompletedAt": { "type": "string", "format": "date-time" },
+        "inventoryDeducted": { "type": "boolean" },
+        "inventoryDeductedAt": { "type": "string", "format": "date-time" },
+        "inventoryRestored": { "type": "boolean" },
+        "inventoryRestoredAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "orderId", "customerId", "customerName", "customerPhone", "fulfillmentType",
+        "deliveryCommunity", "deliveryAddressSummary", "deliveryRuleAcknowledged",
+        "displayedSubtotal", "autoDiscountTotal", "couponDiscount", "deliveryCharge",
+        "handlingCharge", "finalAmount", "totalItemCount", "paymentStatus", "status",
+        "estimatedPrepMinutes", "createdAt", "updatedAt"
+      ]
+    },
+    "OrderItem": {
+      "title": "OrderItem",
+      "description": "Individual food or cake item within an order.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "orderId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "customerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "productType": { "type": "string", "enum": ["food", "cake"] },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "quantityLabel": { "type": "string", "maxLength": 60 },
+        "selectedFlavour": { "type": "string", "maxLength": 40 },
+        "quantity": { "type": "integer" },
+        "originalPrice": { "type": "integer" },
+        "displayedPrice": { "type": "integer" },
+        "autoDiscountPerUnit": { "type": "integer" },
+        "lineTotal": { "type": "integer" }
+      },
+      "required": ["id", "orderId", "customerId", "productId", "productType", "name", "quantity", "originalPrice", "displayedPrice", "autoDiscountPerUnit", "lineTotal"]
+    },
+    "OrderStatusHistory": {
+      "title": "OrderStatusHistory",
+      "description": "Timestamped status progression entry for an order.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "orderId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "customerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "status": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "note": { "type": "string", "maxLength": 240 },
+        "updatedBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "orderId", "customerId", "status", "note", "updatedBy", "createdAt"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Razorpay transaction record with verification and refund state.",
+      "type": "object",
+      "properties": {
+        "paymentId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "orderId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "customerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "amount": { "type": "integer" },
+        "currency": { "type": "string", "enum": ["INR"] },
+        "status": { "type": "string", "enum": ["pending", "verified", "successful", "failed", "refund_processing", "refunded"] },
+        "razorpayOrderId": { "type": "string", "maxLength": 128 },
+        "razorpayPaymentId": { "type": "string", "maxLength": 128 },
+        "signatureVerified": { "type": "boolean" },
+        "verifiedByServer": { "type": "boolean" },
+        "refundId": { "type": "string", "maxLength": 128 },
+        "refundStatus": {
+          "type": "string",
+          "enum": [
+            "Refund Requested",
+            "Under Investigation",
+            "Refund Approved",
+            "Refund Processing",
+            "Refund Completed",
+            "Refund Rejected"
+          ]
+        },
+        "refundAmount": { "type": "integer" },
+        "failureReason": { "type": "string", "maxLength": 240 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["paymentId", "orderId", "customerId", "amount", "currency", "status", "signatureVerified", "createdAt", "updatedAt"]
+    },
+    "Coupon": {
+      "title": "Coupon",
+      "description": "Promotional coupon configured by restaurant admins.",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "minLength": 2, "maxLength": 32, "pattern": "^[A-Z0-9_\\-]+$" },
+        "discountType": { "type": "string", "enum": ["percentage", "fixed"] },
+        "discountValue": { "type": "integer" },
+        "minOrderAmount": { "type": "integer" },
+        "validFrom": { "type": "string", "format": "date-time" },
+        "validUntil": { "type": "string", "format": "date-time" },
+        "usageLimit": { "type": "integer" },
+        "usedCount": { "type": "integer" },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["code", "discountType", "discountValue", "minOrderAmount", "validFrom", "validUntil", "usageLimit", "usedCount", "active", "createdAt", "updatedAt"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Authorized ZAIKORA KITCHENS administrator.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "phone": { "type": "string", "maxLength": 20 },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "role": { "type": "string", "enum": ["super_admin", "manager"] },
+        "active": { "type": "boolean" },
+        "proofDigest": { "type": "string", "minLength": 64, "maxLength": 64, "pattern": "^[a-f0-9]{64}$" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "role", "active", "createdAt"]
+    },
+    "RestaurantSettings": {
+      "title": "RestaurantSettings",
+      "description": "Global restaurant configuration and operational rules.",
+      "type": "object",
+      "properties": {
+        "brandName": { "type": "string", "maxLength": 60 },
+        "tagline": { "type": "string", "maxLength": 80 },
+        "whatsappNumber": { "type": "string", "maxLength": 20 },
+        "contactPhone": { "type": "string", "maxLength": 20 },
+        "contactEmail": { "type": "string", "maxLength": 120 },
+        "defaultPrepMinutes": { "type": "integer" },
+        "deliveryCharge": { "type": "integer" },
+        "handlingCharge": { "type": "integer" },
+        "autoDiscountPerItem": { "type": "integer" },
+        "isAcceptingOrders": { "type": "boolean" },
+        "checkoutChargesConfigured": { "type": "boolean" },
+        "collectionNotice": { "type": "string", "maxLength": 240 },
+        "studioPhone": { "type": "string", "maxLength": 20 },
+        "studioEmail": { "type": "string", "maxLength": 120 },
+        "studioInstagram": { "type": "string", "maxLength": 200 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["brandName", "tagline", "defaultPrepMinutes", "deliveryCharge", "handlingCharge", "autoDiscountPerItem", "isAcceptingOrders", "updatedAt"]
+    },
+    "SecurityLog": {
+      "title": "SecurityLog",
+      "description": "Administrator security and database audit event.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "eventType": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "actorUid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "target": { "type": "string", "maxLength": 200 },
+        "details": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "eventType", "actorUid", "createdAt"]
+    },
+    "PhoneAccount": {
+      "title": "PhoneAccount",
+      "description": "Zero-cost Mobile Number + 4-Digit Account Password customer account registry.",
+      "type": "object",
+      "properties": {
+        "phoneId": { "type": "string", "minLength": 12, "maxLength": 12, "pattern": "^91[6-9][0-9]{9}$" },
+        "phone": { "type": "string", "minLength": 13, "maxLength": 13, "pattern": "^\\+91[6-9][0-9]{9}$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 160 },
+        "marketingConsent": { "type": "boolean" },
+        "pinSalt": { "type": "string", "minLength": 16, "maxLength": 128 },
+        "pinHash": { "type": "string", "minLength": 32, "maxLength": 256 },
+        "lastUid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "loginCount": { "type": "integer" },
+        "orderCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["phoneId", "phone", "name", "pinSalt", "pinHash", "lastUid", "loginCount", "orderCount", "createdAt", "updatedAt"]
+    },
+    "AdminLockConfig": {
+      "title": "AdminLockConfig",
+      "description": "Two-sector admin lock verification digest (never readable by clients).",
+      "type": "object",
+      "properties": {
+        "lockDigest": { "type": "string", "minLength": 64, "maxLength": 64, "pattern": "^[a-f0-9]{64}$" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["lockDigest", "updatedAt"]
+    },
+    "MediaAsset": {
+      "title": "MediaAsset",
+      "description": "Permanent Firebase Storage image or video asset metadata and assignment state.",
+      "type": "object",
+      "properties": {
+        "mediaId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "displayLabel": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "originalFilename": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "mediaType": { "type": "string", "enum": ["image", "video"] },
+        "mediaCategory": { "type": "string", "enum": ["food", "cake", "homepage", "promotional", "other"] },
+        "storagePath": { "type": "string", "minLength": 1, "maxLength": 260 },
+        "derivativeStoragePath": { "type": "string", "maxLength": 260 },
+        "downloadUrl": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "derivativeUrl": { "type": "string", "maxLength": 1000 },
+        "mimeType": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "fileFormat": { "type": "string", "minLength": 1, "maxLength": 20 },
+        "fileSize": { "type": "integer" },
+        "width": { "type": "integer" },
+        "height": { "type": "integer" },
+        "assignedProductId": { "type": "string", "maxLength": 128 },
+        "assignedProductName": { "type": "string", "maxLength": 120 },
+        "assignedProductType": { "type": "string", "enum": ["food", "cake"] },
+        "websiteSection": { "type": "string", "maxLength": 80 },
+        "active": { "type": "boolean" },
+        "uploadedBy": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["mediaId", "displayLabel", "originalFilename", "mediaType", "mediaCategory", "storagePath", "downloadUrl", "mimeType", "fileFormat", "fileSize", "active", "uploadedBy", "createdAt", "updatedAt"]
+    },
+    "SiteMediaSection": {
+      "title": "SiteMediaSection",
+      "description": "Assigned permanent image or video for homepage, cakes banner, promo banner, or category visuals.",
+      "type": "object",
+      "properties": {
+        "sectionId": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "mediaId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "mediaUrl": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "derivativeUrl": { "type": "string", "maxLength": 1000 },
+        "mediaType": { "type": "string", "enum": ["image", "video"] },
+        "storagePath": { "type": "string", "minLength": 1, "maxLength": 260 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["sectionId", "label", "mediaId", "mediaUrl", "mediaType", "storagePath", "updatedAt"]
+    },
+    "StockHistory": {
+      "title": "StockHistory",
+      "description": "Immutable inventory ledger capturing admin stock updates, resets, order deductions, and rejection restores.",
+      "type": "object",
+      "properties": {
+        "historyId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "productType": { "type": "string", "enum": ["food", "cake"] },
+        "stockMode": { "type": "string", "enum": ["unlimited", "limited"] },
+        "stockUnit": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "previousStock": { "type": "integer" },
+        "changeDelta": { "type": "integer" },
+        "newStock": { "type": "integer" },
+        "actionType": {
+          "type": "string",
+          "enum": ["manual_add", "manual_reduce", "manual_edit", "mode_change", "availability_toggle", "admin_reset", "order_deduction", "order_restore"]
+        },
+        "reason": { "type": "string", "maxLength": 240 },
+        "orderId": { "type": "string", "maxLength": 128 },
+        "actorUid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["historyId", "productId", "productName", "productType", "stockMode", "stockUnit", "previousStock", "changeDelta", "newStock", "actionType", "actorUid", "createdAt"]
+    },
+    "CheckoutCharge": {
+      "title": "CheckoutCharge",
+      "description": "Admin-managed checkout fee or charge (fixed INR or percentage, optional free override, enable/disable toggle).",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "description": { "type": "string", "maxLength": 240 },
+        "amount": { "type": "number" },
+        "type": { "type": "string", "enum": ["fixed", "percentage"] },
+        "appliesOn": { "type": "string", "enum": ["all", "delivery_only"] },
+        "enabled": { "type": "boolean" },
+        "displayOrder": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "amount", "type", "appliesOn", "enabled", "displayOrder", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/phone_accounts/{phoneId}": {
+      "schema": { "$ref": "#/entities/PhoneAccount" },
+      "description": "Mobile number + 4-digit PIN customer credential & order count records keyed by 91XXXXXXXXXX."
+    },
+    "/customers/{customerId}": {
+      "schema": { "$ref": "#/entities/Customer" },
+      "description": "Authenticated customer profiles keyed by Firebase Auth UID."
+    },
+    "/customers/{customerId}/addresses/{addressId}": {
+      "schema": { "$ref": "#/entities/Address" },
+      "description": "Customer saved delivery addresses."
+    },
+    "/customers/{customerId}/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/CustomerNotification" },
+      "description": "Customer in-website order & SMS notification log."
+    },
+    "/food_menu/{itemId}": {
+      "schema": { "$ref": "#/entities/FoodMenuItem" },
+      "description": "Food menu items managed by admins."
+    },
+    "/cake_menu/{cakeId}": {
+      "schema": { "$ref": "#/entities/CakeMenuItem" },
+      "description": "Cakes catalog managed by admins."
+    },
+    "/media_library/{mediaId}": {
+      "schema": { "$ref": "#/entities/MediaAsset" },
+      "description": "Permanent Firebase Storage image & video asset registry."
+    },
+    "/site_media/{sectionId}": {
+      "schema": { "$ref": "#/entities/SiteMediaSection" },
+      "description": "Website section media assignments (homepage hero, cakes banner, promo banner, category visuals)."
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Customer food and cake orders."
+    },
+    "/orders/{orderId}/items/{itemId}": {
+      "schema": { "$ref": "#/entities/OrderItem" },
+      "description": "Line items belonging to an order."
+    },
+    "/orders/{orderId}/status_history/{historyId}": {
+      "schema": { "$ref": "#/entities/OrderStatusHistory" },
+      "description": "Audit trail of order status transitions."
+    },
+    "/payments/{paymentId}": {
+      "schema": { "$ref": "#/entities/Payment" },
+      "description": "Razorpay payment transaction records."
+    },
+    "/coupons/{couponId}": {
+      "schema": { "$ref": "#/entities/Coupon" },
+      "description": "Discount coupons."
+    },
+    "/admins/{uid}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Role-based admin access registry."
+    },
+    "/restaurant_settings/{docId}": {
+      "schema": { "$ref": "#/entities/RestaurantSettings" },
+      "description": "Restaurant configuration settings."
+    },
+    "/checkout_charges/{chargeId}": {
+      "schema": { "$ref": "#/entities/CheckoutCharge" },
+      "description": "Dynamic checkout charges and fees managed by restaurant admins."
+    },
+    "/security_logs/{logId}": {
+      "schema": { "$ref": "#/entities/SecurityLog" },
+      "description": "Administrator-only immutable security audit log."
+    },
+    "/stock_history/{historyId}": {
+      "schema": { "$ref": "#/entities/StockHistory" },
+      "description": "Immutable stock & inventory movement history."
+    },
+    "/admin_lock_config/{docId}": {
+      "schema": { "$ref": "#/entities/AdminLockConfig" },
+      "description": "Private two-sector admin lock verification digest."
+    }
+  }
+}

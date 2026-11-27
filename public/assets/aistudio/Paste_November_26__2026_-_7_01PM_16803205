@@ -1,0 +1,1272 @@
+ZAIKORA KITCHENS — FINAL PRE-DEPLOYMENT REPAIR, OPTIMIZATION, FINAL MENU CORRECTION & PRODUCTION READINESS
+
+THIS IS THE FINAL EDITING SESSION BEFORE THE WEBSITE IS DEPLOYED TO THE LIVE SERVER TODAY.
+
+The existing ZAIKORA KITCHENS website has already been developed and most of the required features have been implemented.
+
+The Admin Panel is generally working. The Inventory / Limited Stock Management system has been implemented, but there is a specific Firestore error that needs to be repaired. The food images are loading extremely slowly, and there are additional final corrections and production-readiness checks that must be completed.
+
+I want you to perform a complete, careful and professional final engineering pass on the EXISTING WEBSITE.
+
+This is the FINAL editing session before deployment.
+
+Your objective is to inspect the existing website, identify actual issues, repair them, optimize performance, make the requested menu correction, cross-check all existing functions, test the complete system and prepare the website for production deployment.
+
+DO NOT unnecessarily redesign, rebuild or rewrite the entire website.
+
+DO NOT make unnecessary changes to functioning features.
+
+DO NOT shorten this task by skipping requirements.
+
+You have sufficient available Google AI Studio working resources and credits for this task. Use the available resources efficiently and complete the requested work thoroughly. Do not prematurely stop, skip requested checks, or falsely claim that a quota, credit or limit has been exhausted. If a genuine technical limitation actually prevents a task from being completed, explain the exact limitation honestly and complete every other task that can be completed.
+
+This is a final production-preparation task—not a new website creation project.
+
+PART 1 — PROTECT THE EXISTING WEBSITE
+
+Before modifying anything, inspect the complete existing project and understand its architecture.
+
+Review:
+
+- Existing frontend structure
+- Existing backend/server functionality
+- Firebase configuration
+- Firestore database structure
+- Firebase Storage structure
+- Authentication system
+- Admin authentication
+- Order management
+- Payment integration
+- Inventory system
+- Food menu
+- Cake menu
+- Media management
+- Image-rendering components
+- Existing routes
+- Existing website design
+- Netlify deployment configuration
+- Existing environment variables
+- Existing security rules
+- Existing functions and APIs
+
+Preserve the existing:
+
+- ZAIKORA KITCHENS branding
+- Logo
+- Website colors
+- Website design
+- Website layout
+- Homepage
+- Food Menu
+- Cakes section
+- Existing menu items
+- Existing menu prices
+- Existing product categories
+- Existing product descriptions
+- Customer registration
+- Customer login
+- Customer account
+- Cart
+- Checkout
+- Razorpay integration
+- Order creation
+- Order management
+- Order tracking
+- Contact page
+- Food Licence page
+- Admin Panel
+- Admin Dashboard
+- Security Dashboard
+- Inventory / Stock Management
+- Firebase integration
+- Existing Netlify configuration
+- Existing mobile UI
+- Existing desktop UI
+
+Do not create a duplicate website.
+
+Do not create a duplicate database.
+
+Do not rebuild existing functionality unnecessarily.
+
+Do not remove functioning features.
+
+Do not modify unrelated sections of the website.
+
+Make targeted, minimal, safe and necessary changes.
+
+PART 2 — FIX THE EXACT FIRESTORE INVENTORY ERROR
+
+2.1 THE CURRENT ERROR
+
+The Inventory / Stock Management page currently displays the following error:
+
+"Function WriteBatch.set() called with invalid data. Unsupported field value: undefined (found in field imageDerivativeUrl in document food_menu/chicken-tandoori-strips)"
+
+This is a real error that must be fixed.
+
+Do not ignore it.
+
+Do not merely hide the error message.
+
+Investigate the actual source of the error in the existing code.
+
+2.2 INVESTIGATE THE ROOT CAUSE
+
+Inspect:
+
+- The Firestore WriteBatch implementation.
+- The function responsible for saving inventory data.
+- The function responsible for updating food-menu records.
+- The inventory save/update handler.
+- Product-data serialization.
+- Image metadata handling.
+- Optional image fields.
+- Product image references.
+- Firebase Firestore write operations.
+- Existing stock-management logic.
+
+Determine exactly why the value imageDerivativeUrl is being passed as undefined.
+
+Determine whether inventory updates are unnecessarily rewriting image fields.
+
+Determine whether the inventory update is sending an entire product document when it should only update inventory fields.
+
+Determine whether missing optional image fields are being included in the Firestore write.
+
+2.3 REPAIR THE PROBLEM PROPERLY
+
+Fix the underlying problem.
+
+Firestore does not accept undefined values in document writes by default.
+
+Ensure that optional fields are handled correctly.
+
+Fields that may be optional include:
+
+- imageDerivativeUrl
+- imageUrl
+- imageStoragePath
+- thumbnailUrl
+- imageMetadata
+- other optional image-related fields
+
+If an optional field is not present, do not pass undefined into Firestore.
+
+Use the appropriate safe data-cleaning strategy, omit undefined fields from writes, or use an appropriate existing schema strategy.
+
+Where possible, inventory operations should update only the necessary inventory fields instead of unnecessarily rewriting unrelated product information or image metadata.
+
+Do not delete existing valid image URLs.
+
+Do not delete Firebase Storage references.
+
+Do not overwrite correct image data with undefined.
+
+Do not damage existing menu product records.
+
+Do not introduce a new database schema unnecessarily.
+
+2.4 TEST THE FIX
+
+After fixing the problem, test:
+
+- Opening Inventory / Stock Management.
+- Selecting an existing food item.
+- Switching the item to Limited Stock.
+- Entering a quantity.
+- Saving the stock.
+- Editing stock.
+- Adding stock.
+- Reducing stock.
+- Marking an item unavailable.
+- Restocking an item.
+- Refreshing the page.
+- Checking that stock persists.
+
+The Firestore error must no longer occur during normal inventory operations.
+
+PART 3 — REPAIR AND VERIFY LIMITED STOCK MANAGEMENT
+
+The Limited Stock & Availability Management feature is already implemented.
+
+Do not rebuild it unnecessarily.
+
+Repair and verify the existing implementation.
+
+3.1 STOCK MANAGEMENT
+
+For every existing food item, ensure the administrator can control:
+
+- Unlimited availability.
+- Limited-stock availability.
+- Exact stock quantity.
+- Correct stock unit.
+- Available status.
+- Unavailable status.
+- Sold-out status.
+- Low-stock threshold.
+- Add Stock.
+- Reduce Stock.
+- Edit Stock.
+- Manual availability control.
+
+Preserve the existing interface.
+
+3.2 STOCK VALIDATION
+
+Verify that:
+
+- Stock can be entered.
+- Stock saves correctly.
+- Stock persists after refreshing.
+- Stock persists after logout and login.
+- Stock persists across devices.
+- Stock updates correctly when orders are confirmed.
+- Stock never becomes negative.
+- Customers cannot purchase more than the available quantity.
+- Sold-out items cannot be purchased.
+- Adding stock makes the item available again when appropriate.
+
+3.3 INVENTORY TESTING
+
+Test the following example:
+
+Initial stock:
+
+Chicken Biryani — 5 Plates.
+
+Customer orders 2 plates.
+
+Remaining stock:
+
+3 Plates.
+
+Customer orders 1 plate.
+
+Remaining stock:
+
+2 Plates.
+
+Customer orders the remaining 2 plates.
+
+Remaining stock:
+
+0 Plates.
+
+The item should automatically become SOLD OUT.
+
+Test that a customer cannot order more than the available quantity.
+
+Test that abandoned carts do not incorrectly deduct stock.
+
+Test that failed payments do not incorrectly deduct stock.
+
+Test that confirmed orders deduct stock correctly according to the existing order/payment confirmation system.
+
+Test that simultaneous customer orders cannot oversell inventory.
+
+Test that stock cannot become negative.
+
+Test that cancellation and stock restoration cannot happen twice.
+
+3.4 DO NOT MODIFY THE EXISTING MENU
+
+Do not add menu items.
+
+Do not change existing prices.
+
+Do not invent products.
+
+Do not alter portion sizes.
+
+Do not alter unrelated menu descriptions.
+
+Use the existing menu as the source of truth.
+
+PART 4 — URGENT: FIX EXTREMELY SLOW FOOD IMAGE LOADING
+
+4.1 CURRENT PROBLEM
+
+Food images on the website are loading extremely slowly.
+
+Some images take approximately one or two minutes to load.
+
+There are approximately 27 food menu images, and this is completely unacceptable for a live restaurant website.
+
+A customer should not have to wait minutes for food images.
+
+Investigate the actual cause before implementing optimization.
+
+Do not simply change the loading spinner or pretend that the problem has been solved.
+
+4.2 INVESTIGATE THE IMAGE SYSTEM
+
+Inspect:
+
+- Actual image file sizes.
+- Image resolutions.
+- Original image formats.
+- Firebase Storage loading speed.
+- Firebase Storage paths.
+- Whether images are being loaded sequentially.
+- Whether the website is downloading images one at a time unnecessarily.
+- Whether duplicate image requests are occurring.
+- Whether images are being downloaded repeatedly.
+- Whether the same image is being loaded multiple times across components.
+- Whether Firebase Storage URLs are being unnecessarily regenerated.
+- Whether image URLs are valid.
+- Whether Firebase Storage permissions are causing delays.
+- Whether images are being processed repeatedly.
+- Whether image derivatives are being generated unnecessarily.
+- Whether the frontend is downloading original full-resolution images unnecessarily.
+- Whether image loading is blocked by JavaScript.
+- Whether image loading is blocked by menu rendering.
+- Whether lazy-loading is incorrectly implemented.
+- Whether images are being loaded before they are actually needed.
+- Whether image components are waiting for unnecessary processing.
+- Whether caching is missing or incorrectly configured.
+- Whether a CDN or cache strategy is available in the existing architecture.
+- Whether network requests are unnecessarily repeated.
+- Whether there are failed requests and retries.
+- Whether the image-loading system has an architectural problem.
+
+Identify the actual cause or causes.
+
+4.3 OPTIMIZE THE IMAGE SYSTEM
+
+Implement appropriate optimizations using the existing architecture.
+
+Where appropriate:
+
+- Compress images without visibly damaging quality.
+- Use WebP or AVIF where supported.
+- Preserve excellent food-photo quality.
+- Generate appropriate responsive image sizes.
+- Use small thumbnails for menu cards.
+- Use appropriately sized images for larger product views.
+- Avoid downloading original high-resolution images for small menu cards.
+- Implement proper caching.
+- Avoid duplicate requests.
+- Avoid repeated image downloads.
+- Load images concurrently where appropriate.
+- Use lazy loading for images below the fold.
+- Prioritize important visible images above the fold.
+- Avoid downloading all 27 full-resolution images simultaneously.
+- Use correct loading priorities.
+- Use responsive image dimensions.
+- Maintain appropriate aspect ratios.
+- Prevent layout shifts.
+- Provide loading states.
+- Provide reliable image-error fallback handling.
+- Implement retry behavior where appropriate.
+- Avoid unnecessary repeated Firebase requests.
+
+Do not make images blurry or low quality simply to make them load faster.
+
+The objective is fast loading while retaining premium-quality food photography.
+
+4.4 IMAGE PERFORMANCE
+
+The website should not take one or two minutes for a single image.
+
+Optimize image loading so that the visible images appear quickly and smoothly under normal internet conditions.
+
+Avoid blocking the entire menu while images load.
+
+The menu and page content should remain usable while images are loading.
+
+Do not make customers wait for all 27 images before they can use the website.
+
+Implement a sensible image-loading strategy for the entire website.
+
+4.5 TEST IMAGE PERFORMANCE
+
+After implementing image optimization, test:
+
+- Homepage images.
+- Menu images.
+- Cake images.
+- Product images.
+- Cart images.
+- Checkout images.
+- Order-related images.
+- Admin product images.
+- Mobile images.
+- Desktop images.
+
+Verify that:
+
+- Images load faster than before.
+- Images do not unnecessarily download multiple times.
+- Images are cached appropriately.
+- Images load correctly after refreshing.
+- Images load when navigating between pages.
+- Images load on mobile.
+- Images load on desktop.
+- Images remain available after deployment.
+
+Report the actual test results.
+
+Do not claim a specific speed improvement unless it was actually measured.
+
+PART 5 — IMAGE ACCURACY AND 100% IMAGE VISIBILITY
+
+5.1 ALL FOOD IMAGES MUST MATCH THEIR PRODUCTS
+
+Review the existing food images and verify that every product has the correct image.
+
+Use the existing menu as the source of truth.
+
+Examples:
+
+- Chicken Biryani must show Chicken Biryani prepared with Jeera Samba rice.
+- White Rice must show plain white rice.
+- Bangude Fish Tawa Fry must show Bangude fish tawa fry only.
+- Bangda Fish Pulimunchu must show Bangda fish prepared as Pulimunchu.
+- Neer Dosa must show plain Neer Dosa.
+- Salted Fries must show Salted Fries.
+- Peri Peri Fries must show Peri Peri Fries.
+- Loaded Chicken Fries must show Loaded Chicken Fries.
+- Chicken Pizza must show Chicken Pizza.
+- Veg Pizza must show Veg Pizza.
+- Paneer Pizza must show Paneer Pizza.
+- Mini Chicken Pizza must show Mini Chicken Pizza.
+- Mini Veg Pizza must show Mini Veg Pizza.
+- Mini Chicken Burger must show Mini Chicken Burger.
+- Mini Veg Burger must show Mini Veg Burger.
+- Pasta must show the correct Chicken or Veg Pasta.
+- Desserts must show the exact dessert.
+- Cakes must show the correct cake product.
+
+Do not:
+
+- Mix unrelated food items in a product image.
+- Use combination platters for individual food products.
+- Reuse the same image for unrelated products.
+- Use the wrong food.
+- Use fake placeholders when actual product images are available.
+- Change product names to match an image.
+- Replace accurate existing images unnecessarily.
+- Use generic food images when the actual food image is available.
+
+If an image is incorrect, identify and correct it only when necessary.
+
+5.2 CHICKEN BIRYANI — JEERA SAMBA RICE REQUIREMENT
+
+This requirement is extremely important.
+
+ZAIKORA KITCHENS Chicken Biryani is prepared using JEERA SAMBA RICE.
+
+It is not prepared using long-grain Basmati rice.
+
+Chicken Biryani images must accurately reflect:
+
+- Jeera Samba rice.
+- Small-grain rice.
+- The correct Jeera Samba biryani appearance.
+- Realistic chicken pieces.
+- The actual style of biryani served by ZAIKORA KITCHENS.
+
+DO NOT USE LONG-GRAIN BASMATI RICE IN CHICKEN BIRYANI IMAGES.
+
+Do not use long, slender Basmati rice grains.
+
+Do not substitute the actual biryani with generic Basmati biryani imagery.
+
+If the existing correct image is available, preserve it.
+
+Do not unnecessarily replace accurate existing imagery.
+
+5.3 ALL IMAGES MUST BE 100% VISIBLE
+
+Every food image throughout the website must be 100% visible and properly displayed.
+
+This applies to:
+
+- Homepage.
+- Food Menu.
+- Cakes.
+- Product cards.
+- Product details.
+- Cart.
+- Checkout.
+- Order pages.
+- Customer account.
+- Admin Panel.
+- Inventory.
+- Mobile.
+- Desktop.
+
+Images must:
+
+- Load completely.
+- Never appear blank.
+- Never appear broken.
+- Never be hidden.
+- Never have zero dimensions.
+- Never get stuck permanently loading.
+- Never be unnecessarily cropped.
+- Never be stretched.
+- Never be distorted.
+- Maintain the correct aspect ratio.
+- Show the actual food clearly.
+- Remain fully visible within their image containers.
+
+Use suitable image-fit behavior, preferably contain where showing the entire food image is important.
+
+Ensure the complete image can be seen without cutting off important food details.
+
+Do not allow overlays, text, buttons, cards or badges to obscure the food.
+
+5.4 RESPONSIVE IMAGE DISPLAY
+
+Test images on:
+
+- Android phones.
+- Small mobile screens.
+- Large mobile screens.
+- Tablets.
+- Desktop computers.
+- Different screen resolutions.
+
+Avoid:
+
+- Incorrect fixed heights.
+- Excessive cropping.
+- Stretching.
+- Overflow.
+- Images extending outside cards.
+- Images becoming invisible on mobile.
+
+Ensure images remain completely visible and recognizable on every supported screen size.
+
+5.5 IMAGE ERROR HANDLING
+
+Implement:
+
+- Loading indicators.
+- Image-error detection.
+- Retry mechanism where appropriate.
+- Proper fallback.
+- Responsive dimensions.
+- Lazy loading.
+- Image optimization.
+- Logging for broken image sources.
+
+Do not leave empty white or black image boxes indefinitely.
+
+If an image fails, show an appropriate fallback and make the failure identifiable to the administrator.
+
+PART 6 — FINAL MENU CORRECTION: BANGDA FISH PULIMUNCHU
+
+This is an additional final menu correction that must be implemented in the existing menu.
+
+6.1 CHANGE THE EXISTING ITEM NAME
+
+Find the existing menu item currently named:
+
+Fish Puli Munchi
+
+Change its name to exactly:
+
+BANGDA FISH PULIMUNCHU
+
+Use the exact name:
+
+Bangda Fish Pulimunchu
+
+Do not create a duplicate menu item.
+
+Update the existing product safely.
+
+Preserve:
+
+- Existing product ID.
+- Existing order references.
+- Existing inventory references.
+- Existing category.
+- Existing price.
+- Existing product relationships.
+- Existing ordering functionality.
+
+Do not delete the existing item and create a new duplicate.
+
+6.2 EXACT FISH REQUIREMENT
+
+The image must show:
+
+Bangda fish (Mackerel) prepared as Pulimunchu.
+
+Only Bangda fish must be shown.
+
+NO OTHER FISH SPECIES.
+
+Do not use:
+
+- Other fish.
+- Generic fish curry imagery.
+- Mixed-fish dishes.
+- Seafood combination dishes.
+- Fish substitutions.
+- Images containing different fish species.
+- Images that do not represent Bangda Fish Pulimunchu.
+
+The food image must accurately represent the actual product customers are ordering.
+
+6.3 CORRECT IMAGE REQUIREMENT
+
+The image should clearly represent:
+
+- Bangda fish.
+- Bangda fish pieces.
+- Pulimunchu preparation.
+- The actual dish being sold by ZAIKORA KITCHENS.
+
+Do not use a generic fish image.
+
+Do not use another fish species as a substitute.
+
+If the existing image is incorrect, replace only this item's image with a correct Bangda Fish Pulimunchu image.
+
+Do not modify other food images unnecessarily.
+
+6.4 UPDATE IT EVERYWHERE
+
+Verify the updated product name and image in:
+
+- Food Menu.
+- Product card.
+- Product detail.
+- Cart.
+- Checkout.
+- Order details.
+- Customer orders.
+- Admin Food Menu Management.
+- Inventory / Stock Management.
+- Search.
+- Any other place where the old name appears.
+
+Ensure the old name does not remain unintentionally in the customer-facing website.
+
+Preserve the existing product and database relationships.
+
+This is a targeted menu correction and must not affect any other menu item, price, category, order, inventory or website functionality.
+
+PART 7 — CROSS-CHECK THE ENTIRE WEBSITE FOR GLITCHES
+
+Perform a comprehensive inspection of the entire existing website.
+
+Inspect:
+
+- Homepage.
+- Food Menu.
+- Cakes.
+- Cart.
+- Checkout.
+- Registration.
+- Login.
+- My Account.
+- My Orders.
+- Order Tracking.
+- Contact Us.
+- Food Licence page.
+- Admin Panel.
+- Admin Dashboard.
+- Inventory / Stock.
+- Limited Stock.
+- Food Menu Management.
+- Cakes Management.
+- Media Library.
+- Coupons.
+- Customers.
+- Reports.
+- Settings.
+- Security Dashboard.
+- Razorpay configuration.
+
+Look for:
+
+- JavaScript errors.
+- TypeScript errors.
+- Firebase errors.
+- Firestore errors.
+- Broken routes.
+- Broken buttons.
+- Buttons that do nothing.
+- Incorrect redirects.
+- Blank pages.
+- Broken images.
+- Extremely slow images.
+- Console errors.
+- Failed network requests.
+- Layout glitches.
+- Mobile-layout problems.
+- Desktop-layout problems.
+- Overflow.
+- Text overlap.
+- Incorrect loading states.
+- Incorrect error messages.
+- Missing data.
+- Duplicate data.
+- Cart problems.
+- Checkout problems.
+- Order problems.
+- Inventory problems.
+- Payment problems.
+- Security problems.
+- Deployment problems.
+
+Fix legitimate problems that can safely be repaired.
+
+Do not merely report an obvious repairable issue and leave it broken.
+
+Do not introduce unnecessary changes.
+
+PART 8 — ADMIN PANEL CROSS-CHECK
+
+I have already personally checked the Admin Panel and it is generally working.
+
+Do not redesign or rebuild it.
+
+Cross-check the existing Admin Panel.
+
+Verify:
+
+- Admin login.
+- Admin authentication.
+- Admin authorization.
+- Dashboard.
+- Orders.
+- Food Menu.
+- Cakes.
+- Inventory / Stock.
+- Limited Stock.
+- Media Library.
+- Coupons.
+- Customers.
+- Reports.
+- Settings.
+- Security Centre.
+- Razorpay configuration.
+- Admin logout.
+
+Only repair actual issues discovered during testing.
+
+Preserve the existing Admin Panel design.
+
+Do not change working functions unnecessarily.
+
+PART 9 — ADD ADMIN PANEL ACCESS THROUGH THE FOOTER LOGO
+
+I want an additional convenient method to access the Admin Panel from the main website.
+
+9.1 FOOTER LOGO TRIGGER
+
+Use the existing ZAIKORA KITCHENS logo in the website footer as the hidden admin-access trigger.
+
+Do not visibly advertise the Admin Panel.
+
+When the existing footer logo is tapped or clicked 10 consecutive times, open the existing Admin Panel login/access page.
+
+9.2 IMPLEMENTATION REQUIREMENTS
+
+- Use the existing footer logo.
+- Do not change the logo.
+- Do not change the footer design unnecessarily.
+- Implement a reliable ten-tap counter.
+- Reset the counter if the user stops tapping for a reasonable period.
+- Ensure normal footer/logo functionality is not broken.
+- Do not open the Admin Panel after fewer than 10 taps.
+- Open the existing Admin Panel login/access page after 10 taps.
+- Do not bypass administrator authentication.
+- Do not expose administrator credentials.
+- Do not weaken security.
+- Preserve any existing direct Admin Panel access method.
+
+This is an additional hidden-access shortcut.
+
+It is not an authentication bypass.
+
+The Admin Panel must still require the existing proper administrator authentication.
+
+Test the ten-tap access method.
+
+PART 10 — SAFELY RESET TEST/DEMONSTRATION DATA
+
+The Admin Dashboard currently shows approximately:
+
+- 17 orders.
+- Today's revenue approximately ₹20,000.
+
+I want the website prepared with clean production dashboard data before deployment.
+
+However, do not blindly delete all records.
+
+10.1 INVESTIGATE THE DATA
+
+Inspect the existing database and determine:
+
+- Which records are test/demo orders.
+- Which records may be genuine orders.
+- Payment records.
+- Customer records.
+- Inventory records.
+- Financial records.
+- Order histories.
+- Dashboard statistics.
+
+Before removing or resetting data:
+
+- Create a backup/export of relevant data where possible.
+- Identify test/demo records.
+- Identify genuine records.
+- Identify financial records.
+- Identify records linked to payments.
+
+10.2 RESET ONLY CONFIRMED TEST DATA
+
+Remove or reset only confirmed test/demo records and only when safe.
+
+If there is uncertainty about whether a record is genuine:
+
+PRESERVE THE RECORD.
+
+Do not delete genuine orders.
+
+Do not delete genuine payments.
+
+Do not accidentally remove actual business revenue.
+
+Do not delete customer data unnecessarily.
+
+Do not delete inventory records that are required.
+
+Do not create fake production orders.
+
+10.3 DASHBOARD ACCURACY
+
+After the safe cleanup:
+
+- Order counts must reflect actual records.
+- Revenue must reflect actual records.
+- Today's order count must be accurate.
+- No fake test orders should appear as genuine.
+- Payment records must remain consistent.
+- Inventory must remain consistent.
+- Duplicate records must be investigated.
+- Dashboard statistics must accurately reflect the database.
+
+Report exactly what was reset and what was preserved.
+
+PART 11 — RAZORPAY LIVE PRODUCTION PREPARATION
+
+The existing Razorpay configuration currently uses TEST MODE keys.
+
+These must not be used for the live production website.
+
+Prepare the website for live Razorpay configuration.
+
+11.1 INVESTIGATE CURRENT CONFIGURATION
+
+Identify:
+
+- All locations where Razorpay test keys are configured.
+- Frontend configuration.
+- Backend configuration.
+- Environment variables.
+- Server functions.
+- Payment APIs.
+- Webhooks.
+- Signature verification.
+- Order creation.
+- Payment confirmation.
+- Payment-status handling.
+
+11.2 REMOVE TEST-MODE CONFIGURATION FROM PRODUCTION
+
+Prepare the production configuration so the live website does not accidentally use test credentials.
+
+Requirements:
+
+- Remove test-mode credentials from production configuration.
+- Do not hardcode payment credentials into frontend code.
+- Do not expose secret keys in the browser.
+- Do not commit secret keys to source code.
+- Use secure environment variables or the existing secure server-side configuration.
+- Ensure the production website cannot accidentally use test credentials.
+- Preserve secure payment verification.
+- Preserve signature verification.
+- Preserve webhook validation.
+- Preserve the existing checkout and order flow.
+- Do not break the existing payment integration.
+
+11.3 LIVE KEYS WILL BE PROVIDED SEPARATELY
+
+I will provide the original LIVE Razorpay keys separately.
+
+Until the live keys are provided and configured securely:
+
+- Do not invent keys.
+- Do not fabricate credentials.
+- Do not guess keys.
+- Do not expose keys.
+- Do not claim live payment readiness.
+- Clearly report that live Razorpay configuration is pending.
+
+Once I provide the live keys through the appropriate secure configuration process:
+
+- Configure production correctly.
+- Store secrets securely.
+- Ensure secret keys remain server-side.
+- Verify the configuration.
+- Do not expose the secrets in the final report.
+
+PART 12 — SECURITY CROSS-CHECK
+
+Review the production website for obvious security problems.
+
+Check:
+
+- Admin authentication.
+- Admin authorization.
+- Firebase Security Rules.
+- Firestore access.
+- Firebase Storage access.
+- Publicly exposed credentials.
+- Razorpay secrets.
+- Payment verification.
+- Order authorization.
+- Customer data access.
+- Inventory modification permissions.
+- Admin-only functions.
+- APIs.
+- Security Dashboard.
+- Data exposure.
+- Unnecessary public permissions.
+
+Do not weaken security to make something work.
+
+Do not claim the website is 100% unhackable.
+
+Fix identified security problems where safe.
+
+Report any remaining security issues honestly.
+
+PART 13 — MOBILE AND DESKTOP TESTING
+
+Test the website at different screen sizes.
+
+Test:
+
+- Android/mobile.
+- Small mobile screens.
+- Large mobile screens.
+- Tablet.
+- Desktop.
+- Different browser widths.
+
+Check:
+
+- Navigation.
+- Footer.
+- Menu cards.
+- Food images.
+- Product details.
+- Quantity controls.
+- Cart.
+- Checkout.
+- Forms.
+- Admin Panel.
+- Inventory.
+- Buttons.
+- Layout.
+- Overflow.
+- Text readability.
+- Loading states.
+
+Ensure there are no:
+
+- Broken layouts.
+- Overlapping elements.
+- Unusable buttons.
+- Cropped food images.
+- Invisible images.
+- Unnecessary horizontal scrolling.
+- Mobile-specific glitches.
+
+PART 14 — PERFORMANCE TESTING
+
+Measure and investigate website performance.
+
+Focus on:
+
+- Food image loading.
+- Homepage loading.
+- Menu loading.
+- Cake page loading.
+- JavaScript errors.
+- Firebase requests.
+- Network requests.
+- Duplicate image downloads.
+- Excessive rendering.
+- Unnecessary database reads.
+- Repeated calculations.
+- Caching.
+- Image optimization.
+- Lazy loading.
+- Responsive images.
+
+Optimize only where necessary.
+
+Preserve the existing functionality.
+
+PART 15 — FINAL PRODUCTION BUILD TESTING
+
+Before declaring the website ready, test the actual production build.
+
+Test:
+
+- Production build process.
+- Application startup.
+- All routes.
+- Firebase connection.
+- Food menu.
+- Food images.
+- Cake images.
+- Image visibility.
+- Image performance.
+- Inventory.
+- Limited stock.
+- Stock saving.
+- Sold-out functionality.
+- Stock replenishment.
+- Cart.
+- Checkout.
+- Order creation.
+- Order tracking.
+- Admin Panel.
+- Admin authentication.
+- Footer ten-tap Admin Panel access.
+- Mobile.
+- Desktop.
+- Razorpay configuration status.
+- Security.
+- Performance.
+- Database consistency.
+
+Do not claim a test succeeded if it was not actually performed.
+
+Do not claim the live website was verified if only the development preview was tested.
+
+PART 16 — FINAL EDITING SESSION
+
+This is the FINAL editing session before today's deployment.
+
+Do not start a redesign.
+
+Do not introduce new features that I did not request.
+
+Do not modify unrelated parts of the website.
+
+Do not create a new website.
+
+Do not duplicate the database.
+
+Do not change existing menu prices.
+
+Do not add menu items.
+
+Do not unnecessarily replace images.
+
+Do not unnecessarily rewrite the entire codebase.
+
+Focus on the following:
+
+1. Fixing the Firestore undefined imageDerivativeUrl error.
+2. Fixing limited-stock saving.
+3. Optimizing the extremely slow food-image loading.
+4. Ensuring all food images are 100% visible.
+5. Checking food-image accuracy.
+6. Ensuring Chicken Biryani uses Jeera Samba rice imagery.
+7. Updating Fish Puli Munchi to Bangda Fish Pulimunchu.
+8. Ensuring Bangda Fish Pulimunchu uses Bangda fish only.
+9. Cross-checking the entire website for glitches.
+10. Cross-checking the existing Admin Panel.
+11. Adding the ten-tap footer-logo Admin Panel access.
+12. Safely cleaning confirmed test/demo data.
+13. Preparing Razorpay for LIVE production configuration.
+14. Checking security.
+15. Testing mobile and desktop.
+16. Testing the production build.
+17. Preparing the website for today's deployment.
+
+PART 17 — FINAL REPORT
+
+After completing the work, provide a detailed, honest and clear report.
+
+A. FIXED
+
+List every actual problem that was fixed.
+
+B. FIRESTORE INVENTORY ERROR
+
+Report:
+
+- Root cause.
+- Which files were responsible.
+- What was changed.
+- Whether the undefined imageDerivativeUrl error is resolved.
+- Whether inventory saves successfully.
+- Tests performed.
+
+C. IMAGE PERFORMANCE
+
+Report:
+
+- Why images were slow.
+- What optimization was implemented.
+- Whether image file sizes were optimized.
+- Whether responsive image sizes were implemented.
+- Whether caching works.
+- Whether duplicate requests were addressed.
+- Whether lazy loading was implemented appropriately.
+- Whether all images were tested.
+- Actual performance observations or measurements, if available.
+
+Do not invent speed measurements.
+
+D. IMAGE ACCURACY
+
+Confirm:
+
+- Chicken Biryani uses Jeera Samba rice imagery.
+- Bangda Fish Pulimunchu image shows Bangda fish only.
+- No incorrect fish species are being used.
+- Other menu images match their products.
+- No unnecessary image replacements were performed.
+
+E. IMAGE VISIBILITY
+
+Confirm:
+
+- Images are 100% visible.
+- No unnecessary cropping.
+- No stretching.
+- No broken images.
+- No blank image boxes.
+- No permanently loading images.
+- Mobile image visibility.
+- Desktop image visibility.
+- Cart image visibility.
+- Product-detail image visibility.
+
+F. INVENTORY
+
+Confirm:
+
+- Limited-stock saving works.
+- Stock editing works.
+- Add Stock works.
+- Reduce Stock works.
+- Sold-out status works.
+- Stock deductions work.
+- Overselling is prevented.
+- Inventory persists.
+- Firestore errors are resolved.
+
+G. ADMIN PANEL
+
+Report the cross-check results.
+
+List any issues found and fixed.
+
+Confirm which functions were actually tested.
+
+H. FOOTER ADMIN ACCESS
+
+Confirm:
+
+- Footer logo ten-tap trigger works.
+- Admin login/access page opens after ten taps.
+- Fewer than ten taps do not trigger it.
+- Existing logo functionality remains intact.
+- Authentication is still required.
+- Security was not weakened.
+
+I. DATA RESET
+
+Report:
+
+- What test/demo data was removed.
+- What data was preserved.
+- Whether backups were created.
+- Whether genuine orders were protected.
+- Whether dashboard statistics are accurate.
+
+J. RAZORPAY
+
+Report:
+
+- Whether test keys were removed from production configuration.
+- Whether live keys are pending.
+- Whether live configuration is ready.
+- Whether payment verification remains intact.
+
+Do not expose payment secrets.
+
+K. SECURITY
+
+Report:
+
+- Security checks performed.
+- Issues discovered.
+- Issues fixed.
+- Remaining security concerns.
+
+L. TESTING
+
+Provide a list of tests actually performed and their results.
+
+Clearly distinguish:
+
+- PASS.
+- FAIL.
+- NOT TESTED.
+- REQUIRES LIVE CONFIGURATION.
+
+M. DEPLOYMENT STATUS
+
+Give exactly one of the following statuses:
+
+READY FOR LIVE DEPLOYMENT
+
+READY AFTER LIVE RAZORPAY KEYS ARE CONFIGURED
+
+NOT READY FOR DEPLOYMENT
+
+If a critical issue remains, clearly identify it.
+
+FINAL INSTRUCTION
+
+Treat this as a serious final production launch.
+
+Use the available Google AI Studio resources efficiently and complete the requested work thoroughly.
+
+Do not prematurely stop halfway through.
+
+Do not skip the requested checks.
+
+Do not claim that credits, quota or limits are exhausted unless a genuine technical limitation actually prevents continuing.
+
+Make only necessary, targeted and safe changes.
+
+Protect all existing functionality and data.
+
+Do not make unnecessary modifications.
+
+Do not merely claim the website is glitch-free—inspect, test and verify it.
+
+The objective is to make ZAIKORA KITCHENS stable, fast, secure, properly optimized, fully functional and ready for today's production deployment.
+
+THIS IS THE FINAL EDITING SESSION BEFORE DEPLOYMENT. COMPLETE THE REQUESTED REPAIRS, MENU CORRECTION, OPTIMIZATION, CROSS-CHECKING AND TESTING BEFORE PROVIDING YOUR FINAL REPORT.
